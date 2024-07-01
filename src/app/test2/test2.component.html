@@ -1,0 +1,244 @@
+<!-- <h3>Angular PrimeNG Expandable rows</h3>
+<p-table [value]="bikes" dataKey="brand">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem"></th>
+      <th>Brand</th>
+      <th>Maximum Price(in Rupees)</th>
+      <th>Minimum Price(in Rupees)</th>
+    </tr></ng-template
+  >
+  <ng-template pTemplate="body" let-bike let-expanded="expanded">
+    <tr>
+      <td>
+        <button
+          type="button"
+          pButton
+          pRipple
+          [pRowToggler]="bike"
+          class="p-button-text p-button-rounded p-button-plain"
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+        ></button>
+      </td>
+      <td>{{ bike.brand }}</td>
+      <td>{{ bike.maxPrice }}</td>
+      <td>{{ bike.minPrice }}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-bike>
+    <td colspan="4">
+      <div class="p-3">
+        <p-table [value]="bike.bikesList" dataKey="bikeName">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Bike Name</th>
+              <th>Kmpl</th>
+              <th>CC</th>
+              <th>Price</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-bikeOrd>
+            <tr>
+              <td>{{ bikeOrd.bikeName }}</td>
+              <td>{{ bikeOrd.kmpl }}</td>
+              <td>{{ bikeOrd.cc }}</td>
+              <td>{{ bikeOrd.price }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </td>
+  </ng-template>
+</p-table> -->
+
+
+<div class="card mt-5">
+    <p-toast />
+    <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows"
+        (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-wrap justify-content-end gap-2">
+                <p-button label="Expand All" icon="pi pi-plus" (onClick)="expandAll()" />
+                <p-button label="Collapse All" icon="pi pi-minus" (onClick)="collapseAll()" />
+
+                <p-button label="Add Product" icon="pi pi-plus" (onClick)="showAddProductDialog()" />
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 5rem"></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                <th>Image</th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
+                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
+                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-expanded="expanded">
+            <tr>
+                <td>
+                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true"
+                        [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                </td>
+                <td>{{ product.name }}</td>
+                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                        [alt]="product.name" width="50" class="shadow-4" /></td>
+                <td>{{ product.price | currency : 'USD' }}</td>
+                <td>{{ product.category }}</td>
+                <td></td>
+                <td>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" class="m-3" let-expanded="expanded">
+            <tr>
+                <td>
+                    <p-button type="button" pRipple [text]="true" [rounded]="true" [plain]="true"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                </td>
+                <td>
+                    <input pInputNumber type="number" [min]="0" [(ngModel)]="newProductOrders">
+                </td>
+                <td>
+                    <input pInputNumber name="quantity" type="number" [min]="0">
+                </td>
+                <td>
+                    <button pButton type="button" icon="pi pi-plus" class="ui-button-info" label="Save Line"
+                        (click)="addRow()">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-product>
+            <tr>
+                <td colspan="7">
+                    <div class="p-3">
+                        <p-table [value]="product.orders" dataKey="id">
+                            <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
+                <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
+                <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
+                <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
+                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                <th style="width: 4rem"></th>
+            </tr>
+        </ng-template>
+        <!-- <ng-container *ngIf="product.orders.length">
+                                <ng-template pTemplate="body" let-order>
+                                    <tr>
+                                        <td>{{ order.id }}</td>
+                                        <td>{{ order.customer }}</td>
+                                        <td>{{ order.date }}</td>
+                                        <td>{{ order.amount | currency : 'USD' }}</td>
+                                        <td>
+                                        </td>
+                                        <td><p-button type="button" icon="pi pi-search" /></td>
+                                    </tr>
+                                </ng-template>
+                            </ng-container> -->
+        <ng-container *ngIf="product.orders.length > 0">
+            {{product.orders.length}}
+            <ng-template pTemplate="footer" class="m-3">
+                <ng-container *ngFor="let order of product.orders; let i = index">
+
+                    <tr>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="product.orders[i].id" />
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="product.orders[i].customer" />
+                        </td>
+                    </tr>
+
+                </ng-container>
+            </ng-template>
+        </ng-container>
+
+        <!-- <ng-template pTemplate="footer" class="m-3" >
+                                <tr>
+                                   
+                                    <td >
+                                        <input pInputNumber name="quantity" type="number" [min]="0" >
+                                    </td>
+                                    <td >
+                                        <input pInputNumber name="quantity" type="number" [min]="0" >
+                                    </td>
+                                    <td >
+                                        <input pInputNumber name="quantity" type="number" [min]="0" >
+                                    </td>
+                                    <td >
+                                        <input pInputNumber name="quantity" type="number" [min]="0" >
+                                    </td>
+                                </tr>
+                            </ng-template> -->
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">There are no order for this product yet.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+</div>
+
+
+
+
+
+<!-- Add Product Dialog -->
+<p-dialog [(visible)]="showAddProductDialogFlag" [modal]="true" [style]="{width: '450px'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <h3>Add New Product</h3>
+    </ng-template>
+    <div class="p-fluid">
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="newProduct.name" />
+        </div>
+        <div class="field">
+            <label for="orders">Number of Orders</label>
+            <input type="number" pInputText id="orders" [(ngModel)]="newProductOrders" />
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button label="Cancel" icon="pi pi-times" (onClick)="hideAddProductDialog()"
+            styleClass="p-button-text"></p-button>
+        <p-button label="Add" icon="pi pi-check" (onClick)="addNewProduct()" styleClass="p-button-primary"></p-button>
+    </ng-template>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <table>
+    <tbody>
+      <tr *ngFor="let row of data">
+        <td [style.padding-left.px]="level * 20">
+          <span *ngIf="row.children?.length > 0" (click)="toggleExpand(row)">
+            {{ row.expanded ? '-' : '+' }}
+          </span>
+          {{ row.name }}
+        </td>
+        <td>{{ row.value }}</td>
+      </tr>
+      <tr *ngFor="let child of expandedRows">
+        <app-tree-table [data]="child.children" [level]="level + 1"></app-tree-table>
+      </tr>
+    </tbody>
+  </table> -->

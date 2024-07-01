@@ -1,0 +1,79 @@
+{
+    "data": [
+      {
+        "brand": "TVS Motors",
+        "maxPrice": 265000,
+        "minPrice": 59925,
+        "bikesList": [
+          {
+            "bikeName": "TVS Radeon",
+            "kmpl": 73.68,
+            "cc": 109.7,
+            "price": 59925
+          },
+          {
+            "bikeName": "TVS Ronin",
+            "kmpl": 35.3,
+            "cc": 225.9,
+            "price": 171000
+          },
+          {
+            "bikeName": "TVS Apache RR 310",
+            "kmpl": 33.1,
+            "cc": 312.2,
+            "price": 265000
+          }
+        ]
+      },
+      {
+        "brand": "Royal Enfield",
+        "maxPrice": 332000,
+        "minPrice": 148000,
+        "bikesList": [
+          {
+            "bikeName": "Bullet 350",
+            "kmpl": 40.12,
+            "cc": 346,
+            "price": 148000
+          },
+          {
+            "bikeName": "Classic 350",
+            "kmpl": 41.55,
+            "cc": 349.34,
+            "price": 221000
+          },
+          {
+            "bikeName": "Interceptor 650",
+            "kmpl": 31.95,
+            "cc": 648,
+            "price": 315000
+          }
+        ]
+      },
+      {
+        "brand": "KTM",
+        "maxPrice": 178000,
+        "minPrice": 337000,
+        "bikesList": [
+          {
+            "bikeName": "125 Duke",
+            "kmpl": 46.92,
+            "cc": 124.7,
+            "price": 178000
+          },
+          {
+            "bikeName": "250 Duke",
+            "kmpl": 41,
+            "cc": 248.8,
+            "price": 237000
+          },
+          {
+            "bikeName": "RC 390",
+            "kmpl": 25.89,
+            "cc": 373.27,
+            "price": 316000
+          }
+        ]
+      }
+    ]
+  }

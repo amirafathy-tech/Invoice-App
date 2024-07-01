@@ -1,0 +1,143 @@
+<p-treeTable 
+[value]="invoices" 
+[columns]="cols"
+[resizableColumns]="true" 
+columnResizeMode="expand"
+
+ selectionMode="checkbox" 
+
+dataKey="id"  
+
+ [scrollable]="true" 
+styleClass="p-treetable-gridlines"
+[style]="{ width: '90vw' }" 
+[tableStyle]="{'min-width':'10rem'}"
+>
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+            <span class="ml-2">Toggle All</span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" ttResizableColumn [ttSortableColumn]="col.field">
+                {{ col.header }}
+                <p-treeTableSortIcon [field]="col.field" />
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="footer" let-columns>
+        <tr>
+            <td *ngFor="let col of columns">
+                <input type="text" class="p-inputtext p-component" />
+            </td>
+        </tr>
+    </ng-template> -->
+    <!-- <ng-template pTemplate="summary" >
+        <tr>
+            <td>
+     
+            </td>
+            <td>
+
+            </td>
+            <td>
+                <p-radioButton name="type" value="M" [(ngModel)]="recordType" inputId="type" />
+                <label for="type" class="ml-2">
+                    M
+                </label>
+            </td>
+            <td>
+                <p-radioButton name="type" value="S" [(ngModel)]="recordType" inputId="type" />
+                <label for="type" class="ml-2">
+                    S
+                </label>
+            </td>
+            <td>
+                <p-dropdown [options]="countries" [required]=true [(ngModel)]="selectedCountry"
+                    [ngModelOptions]="{standalone: true}" optionValue="name" optionLabel="name" [filter]="true"
+                    [filterFields]="['name']" [showClear]="true" placeholder="Select One"
+                    [virtualScroll]="true" [appendTo]="'body'" [virtualScrollItemSize]="40">
+                    <ng-template let-record pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ record.name }}::{{ record.code }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </td>
+            <td>
+                <input pInputNumber name="description" type="text">
+            </td>
+            <td>
+                <input pInputNumber name="quantity" type="number" [min]="0">
+            </td>
+            <td>
+                <p-dropdown [options]="countries" [required]=true [(ngModel)]="selectedCountry"
+                    [ngModelOptions]="{standalone: true}" optionValue="name" optionLabel="name" [filter]="true"
+                    [filterFields]="['name']" [showClear]="true" placeholder="Select One" [virtualScroll]="true"
+                    [appendTo]="'body'" [virtualScrollItemSize]="40">
+                    <ng-template let-record pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ record.name }}::{{ record.code }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </td>
+            <td>
+                <p-dropdown [options]="countries" [required]=true [(ngModel)]="selectedCountry"
+                    [ngModelOptions]="{standalone: true}" optionValue="name" optionLabel="name" [filter]="true"
+                    [filterFields]="['name']" [showClear]="true" placeholder="Select One" [virtualScroll]="true"
+                    [appendTo]="'body'" [virtualScrollItemSize]="40">
+                    <ng-template let-record pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ record.name }}::{{ record.code }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </td>
+            <td>
+                <button class="mb-2" >Values</button>
+               
+            </td>
+            <td>
+                <input pInputNumber name="quantity" type="number" [min]="0">
+            </td>
+            <td>
+                <p-dropdown [options]="countries" [required]=true [(ngModel)]="selectedCountry"
+                    [ngModelOptions]="{standalone: true}" optionValue="name" optionLabel="name" [filter]="true"
+                    [filterFields]="['name']" [showClear]="true" placeholder="Select One"
+                    [virtualScroll]="true" [appendTo]="'body'" [virtualScrollItemSize]="40">
+                    <ng-template let-record pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ record.name }}::{{ record.code }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </td>
+            <td>
+                <input pInputNumber name="quantity" type="number" [min]="0">
+            </td>
+            <td>
+                <input pInputNumber name="quantity" type="number" [min]="0">
+            </td>
+            <td>
+                <input pInputNumber name="quantity" type="number" [min]="0">
+            </td>
+            <td>
+                <button pButton type="button" icon="pi pi-plus" class="ui-button-info" label="Save Line"
+                    >
+                </button>
+            </td>
+        </tr>
+    </ng-template>  -->
+</p-treeTable>
